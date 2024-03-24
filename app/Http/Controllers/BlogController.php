@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FormPostRequest;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -44,9 +45,21 @@ class BlogController extends Controller
     }
 
     public function index(): View {
+        $category = Category::find(1);
+        $post = Post::find(10);
+        $category->posts()->where('id','>','10')->get();
         return view('blog.index', [
             'posts' => Post::paginate(1)
-    ]);
+        ]);
+
+        //CREER CAT
+        // Category::create([
+        //     'name' => 'Catégorie 1'
+        // ]);
+        // Category::create([
+        //     'name' => 'Catégorie 2'
+        // ]);
+
 }
 
     public function show(string $slug, Post $post): RedirectResponse | View

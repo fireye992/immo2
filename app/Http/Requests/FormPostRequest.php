@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class FormPostRequest extends FormRequest
 {
@@ -33,7 +34,7 @@ class FormPostRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'slug' => $this->input('slug') ?: \Str::slug($this->input('title'))
+            'slug' => $this->input('slug') ?: Str::slug($this->input('title'))
         ]);
     }
 }
