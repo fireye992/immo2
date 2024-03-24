@@ -13,9 +13,13 @@ Route::get('/', function () {
 // L'avantage de passer par des prefix c'est que je peu changer quand je veux les slug et les adresse en e une fois
 Route::prefix('/blog')->name('blog.')->controller(BlogController::class)->group(function (){
     Route::get('/', 'index')->name('index');
-
-    Route::get('/{slug}-{id}','show')->where([
-        'id' => '[0-9]+',
+    Route::get('/new', 'create')->name('create');
+    Route::post('new', 'store');
+    Route::get('/{post}/edit', 'edit')->name('edit');
+    Route::post('/{post}/edit', 'update');
+    Route::get('/{slug}-{post}', 'show')->where([
+        'post' => '[0-9]+',
         'slug' => '[a-z0-9\-]+'
     ])->name('show');
-});
+
+ });
