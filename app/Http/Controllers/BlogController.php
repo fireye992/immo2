@@ -45,11 +45,9 @@ class BlogController extends Controller
     }
 
     public function index(): View {
-        $category = Category::find(1);
-        $post = Post::find(10);
-        $category->posts()->where('id','>','10')->get();
+
         return view('blog.index', [
-            'posts' => Post::paginate(1)
+            'posts' => Post::with('tags', 'category')->paginate(10)
         ]);
 
         //CREER CAT

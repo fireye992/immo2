@@ -26,7 +26,7 @@
     </div>
     <div>
         <label for="content" class="block mb-1 text-sm text-gray-600">Contenu</label>
-        <textarea name="content" class="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40">{{ old('content', $post->content) }}" </textarea>
+        <textarea name="content" class="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40">{{ old('content', $post->content) }}</textarea>
         @error("content")
         <div class="inline-flex text-sm text-red-700"> {{ $message }}
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
