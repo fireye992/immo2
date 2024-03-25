@@ -12,53 +12,58 @@ use Illuminate\Http\Request;
 class BlogController extends Controller
 {
 
-    public function create()
-    {
-        $post = new Post();
-        $post->title = 'Nom du bordel';
-        $post->slug = 'slug_du_bordel';
-        $post->content = 'mets ton contenu de merde ici';
-        return view('blog.create', [
-            'post'  => $post
-        ]);
-    }
+    // public function create()
+    // {
+    //     $post = new Post();
+    //     $post->title = 'Nom du bordel';
+    //     $post->slug = 'slug_du_bordel';
+    //     $post->content = 'mets ton contenu de merde ici';
+    //     return view('blog.create', [
+    //         'post'  => $post
+    //     ]);
+    // }
 
-    public function store(FormPostRequest $request) {
+    public function create()
+{
+    return view('blog.create', [
+        'post' => new Post(),
+        'categories' => Category::all() // Si vous avez un champ pour les catégories dans le formulaire
+    ]);
+}
+
+
+    public function store(FormPostRequest $request)
+    {
         $post = Post::create($request->validated());
         return redirect()->route('blog.show', ['slug' => $post
-        ->slug, 'post' => $post->id])
-        ->with('success', "sauvegarde ok");
+            ->slug, 'post' => $post->id])
+            ->with('success', "sauvegarde ok");
     }
 
-    public function edit(Post $post) {
-        return view('blog.edit',[
-            'post' => $post
+    public function edit(Post $post)
+    {
+        return view('blog.edit', [
+            'post' => $post,
+            'categories' => Category::select('id', 'name')->get()
         ]);
     }
 
-    public function update(Post $post, FormPostRequest $request) {
+    public function update(Post $post, FormPostRequest $request)
+    {
         $post->update($request->validated());
         return redirect()
-        ->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])
-        ->with('success', "modif ok");
-
+            ->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])
+            ->with('success', "modif ok");
     }
 
-    public function index(): View {
+    public function index(): View
+    {
 
         return view('blog.index', [
             'posts' => Post::with('tags', 'category')->paginate(10)
         ]);
 
-        //CREER CAT
-        // Category::create([
-        //     'name' => 'Catégorie 1'
-        // ]);
-        // Category::create([
-        //     'name' => 'Catégorie 2'
-        // ]);
-
-}
+    }
 
     public function show(string $slug, Post $post): RedirectResponse | View
     {

@@ -19,7 +19,7 @@ Route::prefix('/blog')->name('blog.')->controller(BlogController::class)->group(
     Route::post('/{post}/edit', 'update');
     Route::get('/{slug}-{post}', 'show')->where([
         'post' => '[0-9]+',
-        'slug' => '[a-z0-9\-]+'
+        'slug' => '[a-z0-9\-_]+'
     ])->name('show');
 
  });

@@ -12,16 +12,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('categories');
+        // Schema::dropIfExists('categories');
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();
         });
-        Schema::table('posts',
-        function (Blueprint $table){
-            $table->foreignIdFor(Category::class)->nullable()->constrained()->cascadeOnDelete();
-        });
+        Schema::table(
+            'posts',
+            function (Blueprint $table) {
+                $table->foreignIdFor(Category::class)->nullable()->constrained()->cascadeOnDelete();
+            }
+        );
     }
 
     /**
@@ -34,7 +36,7 @@ return new class extends Migration
         // Schema::table('posts', function (Blueprint $table) {
         //         $table->dropConstrainedForeignIdFor('category_id');
         Schema::table('posts', function (Blueprint $table) {
-                      $table->dropForeignIdFor(Category::class);
+            $table->dropForeignIdFor(Category::class);
         });
     }
 };
