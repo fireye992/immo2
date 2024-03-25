@@ -27,7 +27,9 @@ class FormPostRequest extends FormRequest
             'title' => ['required', 'min:4'],
             // on peut ala fin mettre juste ignore ($this->post), mais avec la methide complete on comprend mieux comment laravel fait
             'slug' => ['required', 'min:4', 'regex:/^[0-9a-z\-]+$/',Rule::unique('posts')->ignore($this->route()->parameter('post'))],
-            'content' => ['required']
+            'content' => ['required'],
+            'category_id' => ['required', 'exists:categories,id'],
+            'tags' => ['array', 'exists:tags,id', 'required'],
         ];
     }
 
